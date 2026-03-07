@@ -6,6 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Porking, Modo Bar & Piquín</title>
     <style>
+       /* Estilos Modo Nocturno Forzados */
+        body.modo-noche {
+            background-color: #121212 !important;
+            color: #e0e0e0 !important;
+        }
+
+        body.modo-noche .tarjeta {
+            background: #1e1e1e !important;
+            border-color: #333 !important;
+        }
+
+        body.modo-noche .info-tarjeta h4 {
+            color: #ffffff !important;
+        }
+
+        body.modo-noche .info-tarjeta p {
+            color: #bbb !important;
+        }
+
+        body.modo-noche header {
+            background: #000 !important;
+            border-bottom: 3px solid #000 !important;
+        }
         /* Estilos generales - Tema Claro */
         :root {
             --color-principal: #18130f; /* Naranja fuerte para botones */
@@ -272,7 +295,7 @@
     </div>
 
     <!-- 1. SECCIÓN PORKING -->
-    <section id="porking" class="seccion-menu activa">
+    <section id="porking" class="seccion-menu">
         <h2 class="titulo-seccion">Nuestras Especialidades</h2>
 
         <!-- SUBSECCIÓN: AREPAS TOSTADAS -->
@@ -473,7 +496,7 @@
     </section>
 
     <!-- 2. SECCIÓN MODO BAR -->
-    <section id="modobar" class="seccion-menu">
+    <section id="modobar" class="seccion-menu activa">
         <h2 class="titulo-seccion">La Barra</h2>
           <h3 class="subtitulo-seccion">🍺 Cervezas</h3>
            <div class="grid-galeria">
@@ -634,16 +657,23 @@
                 </div>
             </div>
             <div class="tarjeta">
-                <img src="https://charmingcocktails.com/wp-content/uploads/2025/01/tequila-sunrise-mocktail-non-alcoholic-virgin-tequila-sunrise-drink-with-seedlip-and-orange-juice-and-grenadine-syrup-0007.jpg" alt="Tequila Sunrise">
+                <img src="https://image.makewebeasy.net/makeweb/0/vq7Oemz1i/DefaultData/Tequila_Sunrise_web.jpg?v=202405291424" alt="Tequila Sunrise">
                 <div class="info-tarjeta">
                     <h4>Tequila Sunrise</h4>
                     <div class="contenedor-precio" data-precio-bs="216.00"></div>
                 </div>
             </div>
              <div class="tarjeta">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6-DdKnwmGdSpW5fHhA6WoKQa-reI8xrFX4g&s" alt="Tequila Sunrise">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-m/1280/1d/9f/e3/91/sangria-granizada-de.jpg" alt="Tequila Sunrise">
                 <div class="info-tarjeta">
                     <h4>Caroreña Frappé</h4>
+                    <div class="contenedor-precio" data-precio-bs="216.00"></div>
+                </div>
+            </div>
+             <div class="tarjeta">
+                <img src="https://dinnerthendessert.com/wp-content/uploads/2022/09/Moscow_Mule_4.jpg" alt="Moscow mule">
+                <div class="info-tarjeta">
+                    <h4>Moscow Mule</h4>
                     <div class="contenedor-precio" data-precio-bs="216.00"></div>
                 </div>
             </div>
@@ -996,7 +1026,7 @@
             <div class="tarjeta">
                 <img src="https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=600&q=80" alt="Nachos con Queso">
                 <div class="info-tarjeta">
-                    <h4>Nachos Piquín</h4>
+                    <h4>Nachos Machos</h4>
                     <p>Crujientes totopos bañados en queso fundido, acompañados de pico de gallo y guacamole.</p>
                     <div class="contenedor-precio" data-precio-bs="432.00"></div>
                 </div>
@@ -1008,50 +1038,29 @@
         <p>&copy; 2026 Porking, Modo Bar y Piquín. Todos los derechos reservados.</p>
     </footer>
 <!-- LÓGICA JAVASCRIPT CORREGIDA -->
-    <script>
-        // Usaremos una API alternativa más directa
+   <script>
         const API_URL = 'https://pydolarvenezuela-api.vercel.app/api/v1/dollar/bcv';
 
         async function cargarTasa() {
-            // Valor de emergencia si la API falla
-            const tasaSeguridad = 431.01; 
-
             try {
                 const respuesta = await fetch(API_URL);
-                if (!respuesta.ok) throw new Error('Error en API');
                 const json = await respuesta.json();
-                
-                // Intentamos obtener el valor. 
-                // Nota: La estructura suele ser json.monitors.BCV.price
                 const tasa = parseFloat(json.monitors.BCV.price);
-                
-                if (isNaN(tasa)) throw new Error('Valor inválido');
-                
                 actualizarPagina(tasa);
             } catch (error) {
-                console.warn("No se pudo conectar a la API, usando tasa de respaldo.");
-                actualizarPagina(tasaSeguridad);
+                actualizarPagina(431.01);
             }
         }
 
         function actualizarPagina(tasa) {
-            // 1. Mostrar la tasa en el banner
             document.getElementById('tasa-display').textContent = 'Bs. ' + tasa.toFixed(2);
-            
-            // 2. Calcular los precios
-            const contenedores = document.querySelectorAll('.contenedor-precio');
-            contenedores.forEach(contenedor => {
+            document.querySelectorAll('.contenedor-precio').forEach(contenedor => {
                 const precioBs = parseFloat(contenedor.getAttribute('data-precio-bs'));
                 const precioUsd = (precioBs / tasa).toFixed(2);
-                
-                contenedor.innerHTML = `
-                    <span class="precio-usd">$${precioUsd}</span>
-                    <span class="precio-bs">| Bs. ${precioBs.toFixed(2)}</span>
-                `;
+                contenedor.innerHTML = `<span class="precio-usd">$${precioUsd}</span> <span class="precio-bs">| Bs. ${precioBs.toFixed(2)}</span>`;
             });
         }
 
-        // Función de pestañas
         function mostrarSeccion(idSeccion, botonClickeado) {
             document.querySelectorAll('.seccion-menu').forEach(s => s.classList.remove('activa'));
             document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('activo'));
@@ -1059,8 +1068,20 @@
             botonClickeado.classList.add('activo');
         }
 
-        // Ejecutar al cargar
-        cargarTasa();
+        // AQUÍ VA LA FUNCIÓN DE MODO NOCTURNO
+        function aplicarModoNocturno() {
+            const hora = new Date().getHours();
+            // De 7 PM (19) a 6 AM (6)
+            if (hora >= 19 || hora < 6) {
+                document.body.classList.add('modo-noche');
+            }
+        }
+
+        // SE EJECUTAN AMBOS AL CARGAR
+        window.onload = function() {
+            cargarTasa();
+            aplicarModoNocturno();
+        };
     </script>
     
         
