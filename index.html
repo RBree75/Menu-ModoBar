@@ -1069,48 +1069,70 @@
         <p>&copy; 2026 Porking, Modo Bar y Piquín. Todos los derechos reservados.</p>
     </footer>
 
-   <script>
-        const API_URL = 'https://pydolarvenezuela-api.vercel.app/api/v1/dollar/bcv';
+  <script>
+    // Usamos una API alternativa con respaldo
+    const API_URL = 'https://ve.dolarapi.com/v1/dolares/oficial';
 
-        async function cargarTasa() {
-            try {
-                const respuesta = await fetch(API_URL);
-                const json = await respuesta.json();
-                const tasa = parseFloat(json.monitors.BCV.price);
-                actualizarPagina(tasa);
-            } catch (error) {
-                actualizarPagina(431.01);
-            }
+    async function cargarTasa() {
+        const tasaFallback = 56.40; // Tasa de respaldo por si falla la conexión
+        try {
+            const respuesta = await fetch(API_URL);
+            if (!respuesta.ok) throw new Error('Error en red');
+            
+            const datos = await respuesta.json();
+            // La API de ve.dolarapi devuelve el campo 'promedio'
+            const tasa = parseFloat(datos.promedio);
+            
+            if (isNaN(tasa)) throw new Error('Tasa no numérica');
+            actualizarPagina(tasa);
+        } catch (error) {
+            console.error("Error cargando tasa, usando fallback:", error);
+            actualizarPagina(tasaFallback);
         }
+    }
 
-        function actualizarPagina(tasa) {
-            document.getElementById('tasa-display').textContent = 'Bs. ' + tasa.toFixed(2);
-            document.querySelectorAll('.contenedor-precio').forEach(contenedor => {
-                const precioBs = parseFloat(contenedor.getAttribute('data-precio-bs'));
+    function actualizarPagina(tasa) {
+        const display = document.getElementById('tasa-display');
+        if (display) display.textContent = 'Bs. ' + tasa.toLocaleString('es-VE', { minimumFractionDigits: 2 });
+
+        document.querySelectorAll('.contenedor-precio').forEach(contenedor => {
+            const precioBs = parseFloat(contenedor.getAttribute('data-precio-bs'));
+            if (!isNaN(precioBs)) {
                 const precioUsd = (precioBs / tasa).toFixed(2);
-                contenedor.innerHTML = `<span class="precio-usd">$${precioUsd}</span> <span class="precio-bs">| Bs. ${precioBs.toFixed(2)}</span>`;
-            });
-        }
+                contenedor.innerHTML = `
+                    <span class="precio-usd">$${precioUsd}</span> 
+                    <span class="precio-bs">| Bs. ${precioBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span>
+                `;
+            }
+        });
+    }
 
-        function mostrarSeccion(idSeccion, botonClickeado) {
-            document.querySelectorAll('.seccion-menu').forEach(s => s.classList.remove('activa'));
-            document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('activo'));
-            document.getElementById(idSeccion).classList.add('activa');
+    function mostrarSeccion(idSeccion, botonClickeado) {
+        document.querySelectorAll('.seccion-menu').forEach(s => s.classList.remove('activa'));
+        document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('activo'));
+        
+        const seccion = document.getElementById(idSeccion);
+        if (seccion) {
+            seccion.classList.add('activa');
             botonClickeado.classList.add('activo');
         }
+    }
 
-        function aplicarModoNocturno() {
-            const hora = new Date().getHours();
-            if (hora >= 19 || hora < 6) {
-                document.body.classList.add('modo-noche');
-            }
+    function aplicarModoNocturno() {
+        const hora = new Date().getHours();
+        // Se activa de 7 PM a 6 AM
+        if (hora >= 19 || hora < 6) {
+            document.body.classList.add('modo-noche');
         }
+    }
 
-        window.onload = function() {
-            cargarTasa();
-            aplicarModoNocturno();
-        };
-    </script>
+    // Inicialización al cargar el DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        cargarTasa();
+        aplicarModoNocturno();
+    });
+</script>
+
 </body>
 </html>
 
