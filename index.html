@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Porking, Modo Bar & Piquín</title>
+    <title>Porking & Modo Bar</title>
     <style>
        /* Estilos Modo Nocturno Forzados */
         body.modo-noche {
@@ -28,10 +28,10 @@
             background: #000000c1 !important;
             border-bottom: 3px solid #000 !important;
         }
+
         /* Estilos generales - Tema Claro */
         :root {
             --color-principal: #228666; 
-            --color-secundario: hsl(6, 79%, 49%); 
             --color-fondo: #f8efef;
             --color-tarjeta: #ffffff;
             --color-texto: #333333;
@@ -45,21 +45,20 @@
             color: var(--color-texto);
         }
 
-        /* BANNER TASA BCV */
         .banner-bcv {
             background-color: #45b470; 
             color: #141736;
             padding: 10px;
             font-weight: bold;
             font-size: 1.1rem;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 10;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 12px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo-bcv {
@@ -67,14 +66,6 @@
             background-color: #ffffff; 
             border-radius: 50%; 
             padding: 3px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .tasa-valor {
-            background-color: rgba(0,0,0,0.2);
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 1.2rem;
         }
 
         header {
@@ -93,19 +84,11 @@
             font-weight: 800;
         }
 
-        header p {
-            font-size: 1.1rem;
-            color: #7a3e14; 
-            margin-top: 12px;
-            font-weight: 500;
-        }
-
         .botones-menu {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
             margin: 2.5rem 0;
-            flex-wrap: wrap;
         }
 
         .btn-tab {
@@ -119,31 +102,12 @@
             border-radius: 50px;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-        }
-
-        .btn-tab:hover { 
-            background-color: rgba(211, 84, 0, 0.1); 
-            border-color: var(--color-principal);
-            color: var(--color-principal);
-        }
-        .btn-tab:nth-child(3):hover { 
-            background-color: rgba(192, 57, 43, 0.1); 
-            border-color: var(--color-secundario);
-            color: var(--color-secundario);
         }
 
         .btn-tab.activo {
             background-color: var(--color-principal);
             color: #ffffff;
-            box-shadow: 0 4px 10px rgba(211, 84, 0, 0.3);
             border-color: var(--color-principal);
-        }
-
-        .btn-tab:nth-child(3).activo {
-            background-color: var(--color-secundario);
-            box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
-            border-color: var(--color-secundario);
         }
 
         .seccion-menu {
@@ -151,24 +115,9 @@
             padding: 0 2rem 4rem 2rem;
             max-width: 1200px;
             margin: auto;
-            animation: fadeIn 0.4s ease;
         }
 
         .seccion-menu.activa { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2.titulo-seccion {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-            color: var(--color-principal);
-        }
-
-        #piquin h2.titulo-seccion { color: var(--color-secundario); }
 
         h3.subtitulo-seccion {
             font-size: 1.6rem;
@@ -179,14 +128,10 @@
             margin-bottom: 1.5rem;
         }
 
-        #piquin h3.subtitulo-seccion { border-bottom: 2px solid var(--color-secundario); }
-
-        /* Cuadrícula Corregida para Galería Uniforme */
         .grid-galeria {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            width: 100%;
         }
 
         .tarjeta {
@@ -194,17 +139,9 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #985151;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             display: flex;
-            flex-direction: column; 
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .tarjeta:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+            flex-direction: column;
         }
 
         .tarjeta img {
@@ -212,85 +149,45 @@
             height: 220px;
             object-fit: cover;
             border-bottom: 3px solid var(--color-principal);
-            display: block;
         }
-
-        #piquin .tarjeta img { border-bottom: 3px solid var(--color-secundario); }
 
         .info-tarjeta {
             padding: 1.2rem;
             text-align: center;
-            display: flex;
-            flex-direction: column;
             flex-grow: 1;
-        }
-
-        .info-tarjeta h4 {
-            margin: 0;
-            font-size: 1.2rem;
-            color: var(--color-texto);
-        }
-
-        .info-tarjeta p {
-            margin: 8px 0 0 0;
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.4;
         }
 
         .contenedor-precio {
             margin-top: auto; 
             padding-top: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            border-top: 1px dashed #ddd; 
-            margin-top: 15px;
+            border-top: 1px dashed #ddd;
         }
 
-        .precio-usd {
-            color: #27ae60; 
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
+        .precio-usd { color: #27ae60; font-size: 1.3rem; font-weight: 800; }
+        .precio-bs { color: #777; font-size: 1rem; }
 
-        .precio-bs {
-            color: #777; 
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: #fafafa;
-            color: #666;
-            margin-top: auto;
-            border-top: 1px solid #eee;
-        }
+        footer { text-align: center; padding: 2rem; background: #fafafa; margin-top: 20px; }
     </style>
 </head>
 <body>
 
     <div class="banner-bcv">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOo4msUmPyGaYEjUT2wXmHvhFTAmM-5k9NbQ&s" alt="Logo BCV" class="logo-bcv">
-        TASA BCV: <span id="tasa-display" class="tasa-valor">0.00</span>
+        TASA BCV: <span id="tasa-display">Cargando...</span>
     </div>
 
     <header>
-        <h1>Porking, Modo Bar & Piquín</h1>
+        <h1>Porking & Modo Bar</h1>
         <p>Brasas, Barra y Sazón.</p>
     </header>
 
     <div class="botones-menu">
         <button class="btn-tab" onclick="mostrarSeccion('porking', this)">🍖 Menú Porking</button>
         <button class="btn-tab activo" onclick="mostrarSeccion('modobar', this)">🍸 Modo Bar</button>
-        <button class="btn-tab" onclick="mostrarSeccion('piquin', this)">🌶️ Piquín</button>
     </div>
 
     <section id="porking" class="seccion-menu">
-        <h2 class="titulo-seccion">Nuestras Especialidades</h2>
+        <h2 style="text-align: center; color: var(--color-principal);">Nuestras Especialidades</h2>
 
         <h3 class="subtitulo-seccion">🫓 Arepas Tostadas</h3>
         <div class="grid-galeria">
@@ -298,7 +195,7 @@
                 <img src="https://tb-static.uber.com/prod/image-proc/processed_images/c2ebd7958f6dbc65dc6dfb7b4c0133bf/a19bb09692310dfd41e49a96c424b3a6.jpeg" alt="Arepa Chencho">
                 <div class="info-tarjeta">
                     <h4>Chencho</h4>
-                    <p> Pernil, tomate, lechuga y cuajada casera.</p>
+                    <p>Pernil, tomate, lechuga y cuajada casera.</p>
                     <div class="contenedor-precio" data-precio-bs="216.00"></div>
                 </div>
             </div>
@@ -318,14 +215,6 @@
                     <div class="contenedor-precio" data-precio-bs="288.00"></div>
                 </div>
             </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1518133505856-1cb7d5d548fb?auto=format&fit=crop&w=600&q=80" alt="Arepa Cochino Frito">
-                <div class="info-tarjeta">
-                    <h4>Cochino Frito</h4>
-                    <p>Cochino frito en BBQ ahumada casera y queso amarillo.</p>
-                    <div class="contenedor-precio" data-precio-bs="252.00"></div>
-                </div>
-            </div>
         </div>
 
         <h3 class="subtitulo-seccion">🌽 Cachapas y Carnes</h3>
@@ -339,14 +228,6 @@
                 </div>
             </div>
             <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=600&q=80" alt="Cachapa con Proteína">
-                <div class="info-tarjeta">
-                    <h4>Cachapa con Queso y Proteína</h4>
-                    <p>Añade delicioso chorizo o pernil jugoso a tu cachapa.</p>
-                    <div class="contenedor-precio" data-precio-bs="252.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
                 <img src="https://images.unsplash.com/photo-1544025162-8315147575df?auto=format&fit=crop&w=600&q=80" alt="Costilla BBQ">
                 <div class="info-tarjeta">
                     <h4>Costilla BBQ</h4>
@@ -354,141 +235,14 @@
                     <div class="contenedor-precio" data-precio-bs="504.00"></div>
                 </div>
             </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5e?auto=format&fit=crop&w=600&q=80" alt="Lomo de Cerdo">
-                <div class="info-tarjeta">
-                    <h4>Lomo de Cerdo</h4>
-                    <p>Al grill con 1 guarnición a elegir.</p>
-                    <div class="contenedor-precio" data-precio-bs="360.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1608039755401-742074f0548f?auto=format&fit=crop&w=600&q=80" alt="Pork Belly">
-                <div class="info-tarjeta">
-                    <h4>Pork Belly</h4>
-                    <p>Crujiente panceta de cerdo en su punto perfecto.</p>
-                    <div class="contenedor-precio" data-precio-bs="396.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1625937712144-41cc5b91b97b?auto=format&fit=crop&w=600&q=80" alt="Cochino Frito Plato">
-                <div class="info-tarjeta">
-                    <h4>Cochino Frito</h4>
-                    <p>Ración de nuestro tradicional cochino frito crujiente.</p>
-                    <div class="contenedor-precio" data-precio-bs="324.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" alt="Parrilla Mixta">
-                <div class="info-tarjeta">
-                    <h4>Parrilla de Carne o Cerdo</h4>
-                    <p>Con Chorizo y dos guarniciones a elegir.</p>
-                    <div class="contenedor-precio" data-precio-bs="468.00"></div>
-                </div>
-            </div>
-        </div>
-
-        <h3 class="subtitulo-seccion">🍔 Hamburguesas y Sándwiches</h3>
-        <div class="grid-galeria">
-            <div class="tarjeta">
-                <img src="https://www.justspices.es/media/recipe/Hamburguesa-pulled-pork.jpg" alt="Hamburguesa Pulled Pork">
-                <div class="info-tarjeta">
-                    <h4>Hamburguesa Pulled Pork</h4>
-                    <p>Cerdo mechado, Cole slaw y queso amarillo. Con papas fritas.</p>
-                    <div class="contenedor-precio" data-precio-bs="324.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" alt="Hamburguesa de Cerdo">
-                <div class="info-tarjeta">
-                    <h4>Hamburguesa de Cerdo</h4>
-                    <p>Queso amarillo, lechuga y tomate. Con papas fritas.</p>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=600&q=80" alt="Hamburguesa de Res">
-                <div class="info-tarjeta">
-                    <h4>Hamburguesa de Res</h4>
-                    <p>Mermelada de tocineta, queso amarillo, tomate y lechuga. Con papas fritas.</p>
-                    <div class="contenedor-precio" data-precio-bs="360.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=600&q=80" alt="Hamburguesa de Pollo Frito">
-                <div class="info-tarjeta">
-                    <h4>Hamburguesa de Pollo Frito</h4>
-                    <p>Queso amarillo, lechuga, tocineta y aderezo porking. Con papas fritas.</p>
-                    <div class="contenedor-precio" data-precio-bs="324.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1525351326368-efbb5cb6814d?auto=format&fit=crop&w=600&q=80" alt="Sandwich de Pulled Pork">
-                <div class="info-tarjeta">
-                    <h4>Hamburguesa y Sándwich de Pulled Pork</h4>
-                    <p>Cerdo mechado, cole slaw, queso amarillo y BBQ casera.</p>
-                    <div class="contenedor-precio" data-precio-bs="342.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1619860860774-1e2e17343432?auto=format&fit=crop&w=600&q=80" alt="Sandwich de Cerdo">
-                <div class="info-tarjeta">
-                    <h4>Sándwich de Cerdo</h4>
-                    <p>Queso amarillo, lechuga y tomate. Con papas fritas.</p>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-            </div>
-        </div>
-
-        <h3 class="subtitulo-seccion">🍟 Guarniciones Extras</h3>
-        <div class="grid-galeria">
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=600&q=80" alt="Papas Fritas">
-                <div class="info-tarjeta">
-                    <h4>Papas Fritas</h4>
-                    <p>Crocantes y doradas, la guarnición perfecta.</p>
-                    <div class="contenedor-precio" data-precio-bs="108.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1634818462211-b2edce4a9c40?auto=format&fit=crop&w=600&q=80" alt="Ensalada Cole Slaw">
-                <div class="info-tarjeta">
-                    <h4>Ensalada Cole Slaw</h4>
-                    <p>Tradicional ensalada de col con aderezo cremoso dulce.</p>
-                    <div class="contenedor-precio" data-precio-bs="90.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1612921861053-b108991a5665?auto=format&fit=crop&w=600&q=80" alt="Mac and Cheese">
-                <div class="info-tarjeta">
-                    <h4>Mac and Cheese</h4>
-                    <p>Macarrones bañados en nuestra cremosa salsa de queso.</p>
-                    <div class="contenedor-precio" data-precio-bs="144.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1584308972271-20d23b3a6286?auto=format&fit=crop&w=600&q=80" alt="Dedos de Yuca Fritos">
-                <div class="info-tarjeta">
-                    <h4>Dedos de Yuca Fritos</h4>
-                    <p>Bastones de yuca suaves por dentro y muy crujientes por fuera.</p>
-                    <div class="contenedor-precio" data-precio-bs="108.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1592314546513-4dc975b31d3f?auto=format&fit=crop&w=600&q=80" alt="Pico de Gallo">
-                <div class="info-tarjeta">
-                    <h4>Pico de Gallo</h4>
-                    <p>Refrescante mezcla de tomate, cebolla, cilantro y limón.</p>
-                    <div class="contenedor-precio" data-precio-bs="72.00"></div>
-                </div>
-            </div>
         </div>
     </section>
 
     <section id="modobar" class="seccion-menu activa">
-        <h2 class="titulo-seccion">LA BARRA</h2>
-          <h3 class="subtitulo-seccion">🍺 Cervezas</h3>
-           <div class="grid-galeria">
+        <h2 style="text-align: center; color: var(--color-principal);">LA BARRA</h2>
+        
+        <h3 class="subtitulo-seccion">🍺 Cervezas</h3>
+        <div class="grid-galeria">
             <div class="tarjeta">
                 <img src="https://media.licoresmundiales.com/media/catalog/product/cache/521bfa0199cf24b54354aeac7a407001/0/0/001-016-146.jpg" alt="Polar Pilsen">
                 <div class="info-tarjeta">
@@ -497,654 +251,84 @@
                 </div>
             </div>
             <div class="tarjeta">
-                <img src="https://curda24.com/wp-content/uploads/2021/08/960-thickbox_default.jpg.webp" alt="Polar light">
-                <div class="info-tarjeta">
-                    <h4>Polar Light</h4>
-                    <div class="contenedor-precio" data-precio-bs="832.00"></div>
-                </div>
-            </div>
-             <div class="tarjeta">
                 <img src="https://media.licoresmundiales.com/media/catalog/product/cache/521bfa0199cf24b54354aeac7a407001/0/0/001-016-142.jpg" alt="Solera Azul">
                 <div class="info-tarjeta">
                     <h4>Solera Azul</h4>
                     <div class="contenedor-precio" data-precio-bs="832.00"></div>
                 </div>
             </div>
-            <div class="tarjeta">
-                <img src="https://media.licoresmundiales.com/media/catalog/product/cache/521bfa0199cf24b54354aeac7a407001/0/0/001-016-141.jpg" alt="Solera verde">
-                <div class="info-tarjeta">
-                    <h4>Solera Verde</h4>
-                    <div class="contenedor-precio" data-precio-bs="832.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNRl59ZkjGdrm0U_mDKeTBh2hrj6vPiszu-g&s" alt="Polar pilsen lata">
-                <div class="info-tarjeta">
-                    <h4>Polar Pilsen Lata</h4>
-                    <div class="contenedor-precio" data-precio-bs="940.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://bodegonbeplus.com/wp-content/uploads/2023/10/AA240900802_Lightx1.jpg" alt="Polar Light Lata">
-                <div class="info-tarjeta">
-                    <h4>Polar Light Lata</h4>
-                    <div class="contenedor-precio" data-precio-bs="940.00"></div>
-                </div>
-            </div>
-             <div class="tarjeta">
-                <img src="https://media.licoresmundiales.com/media/catalog/product/cache/521bfa0199cf24b54354aeac7a407001/0/0/001-016-264.jpg" alt="Solera azul lata">
-                <div class="info-tarjeta">
-                    <h4>Solera Azul Lata</h4>
-                    <div class="contenedor-precio" data-precio-bs="940.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://media.licoresmundiales.com/media/catalog/product/cache/521bfa0199cf24b54354aeac7a407001/0/0/001-016-265.jpg" alt="Solera Verde">
-                <div class="info-tarjeta">
-                    <h4>Solera Verde Lata</h4>
-                    <div class="contenedor-precio" data-precio-bs="940.00"></div>
-                </div>
-            </div>
         </div>
-         <h3 class="subtitulo-seccion">🥛Refrescos y Agua</h3>
-           <div class="grid-galeria">
-            <div class="tarjeta">
-                <img src="https://lacolonia.vtexassets.com/arquivos/ids/184562-800-800?v=637117565980670000&width=800&height=800&aspect=true" alt="Coca Cola">
-                <div class="info-tarjeta">
-                    <h4>Coca Cola</h4>
-                    <div class="contenedor-precio" data-precio-bs="832.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe68tJI5YRJ7Q22eeq99ro11ciIANDhA76xw&s" alt="Coca Light">
-                <div class="info-tarjeta">
-                    <h4>Coca Cola light</h4>
-                    <div class="contenedor-precio" data-precio-bs="832.00"></div>
-                </div>
-            </div>
-             <div class="tarjeta">
-                <img src="https://212global.com/wp-content/uploads/2024/06/61a696f64f1abdd16726b63a_thumbnail.png" alt="Chinotto">
-                <div class="info-tarjeta">
-                    <h4>Chinotto</h4>
-                    <div class="contenedor-precio" data-precio-bs="832.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_896204-MLV49051451426_022022-O.webp" alt="Frescolita">
-                <div class="info-tarjeta">
-                    <h4>Frescolita</h4>
-                    <div class="contenedor-precio" data-precio-bs="832.00"></div>
-                 </div>
-           </div>
-           <div class="tarjeta">
-                <img src="https://barakibodegon.net/cdn/shop/files/0020244_agua-nevada-355-ml_450.jpg?v=1721486226&width=990" alt="Agua 350ml">
-                <div class="info-tarjeta">
-                    <h4>Agua Mineral 350ml</h4>
-                    <div class="contenedor-precio" data-precio-bs="108.00"></div>
-                 </div>
-           </div>
-           <div class="tarjeta">
-                <img src="https://lh3.googleusercontent.com/jKYV2L9sQlvd6PQD1u7JeLqLhM84KnlxWtQ614mRu8U7PrNEjxZhPG2RXm1GcAk99-zjF0Cwex8YW8OzsINMybis6JQxRA948Bd3imqsyIUwBQ7G" alt="Agua 600ml">
-                <div class="info-tarjeta">
-                    <h4>Agua Mineral 600ml</h4>
-                    <div class="contenedor-precio" data-precio-bs="144.00"></div>
-                 </div>
-           </div>
-           <div class="tarjeta">
-                <img src=" https://lh3.googleusercontent.com/VOf9P42HGrDHEY0q0GM1F6seJelOzwpFHsWYR-1gFiMSKMiDKK8lH46Qw_E09ydXU4qdp1To4aytNR4TSZ69h_SS5LSim4pSqTQpckaX8hmabG14" alt="Aguakina Lata">
-                <div class="info-tarjeta">
-                    <h4>Aguakina Lata</h4>
-                    <div class="contenedor-precio" data-precio-bs="832.00"></div>
-                 </div>
-           </div>
-           <div class="tarjeta">
-                <img src=" https://www.sigo.com.ve/images/thumbs/0025560_schweppes-club-soda-lata-355ml.jpeg" alt="Soda Lata">
-                <div class="info-tarjeta">
-                    <h4>Soda Lata</h4>
-                    <div class="contenedor-precio" data-precio-bs="832.00"></div>
-                 </div>
-           </div>
-           </div>
 
-  <h3 class="subtitulo-seccion">🍹 Cócteles</h3>
-<div class="grid-galeria">
-    <div class="tarjeta">
-        <img src="https://salimaskitchen.com/wp-content/uploads/2024/07/10-Minute-Pina-Colada-Recipe-A-Classic-Puerto-Rican-Cocktail-Salimas-Kitchen-4-1365x2048.jpg" alt="Piña Colada">
-        <div class="info-tarjeta">
-            <h4>Piña Colada</h4>
-            <div class="contenedor-precio" data-precio-bs="2700.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480/img/recipe/ras/Assets/F4D638E7-5367-4B4C-9A96-AFB085CFCDC4/Derivates/6A8EFD21-BA2F-48FB-BC18-A40C3404FFB9.jpg" alt="Daiquirí de Fresa">
-        <div class="info-tarjeta">
-            <h4>Daiquirí de Fresa</h4>
-            <div class="contenedor-precio" data-precio-bs="2700.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://i0.wp.com/newspack-yucatan.s3.amazonaws.com/uploads/2024/02/recetas-de-cocteleria-margarita.jpg?w=1200&ssl=1" alt="Margarita">
-        <div class="info-tarjeta">
-            <h4>Margarita</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://calidadgourmet.com/wp-content/uploads/2015/08/receta-original-de-mojito-cubano-1.jpg" alt="Mojito Cubano">
-        <div class="info-tarjeta">
-            <h4>Mojito Cubano</h4>
-            <div class="contenedor-precio" data-precio-bs="198.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://safrescobaldistatic.blob.core.windows.net/media/2024/07/Negroni-sbagliato-main.png" alt="Negroni">
-        <div class="info-tarjeta">
-            <h4>Negroni</h4>
-            <div class="contenedor-precio" data-precio-bs="252.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://spirituosenworld.de/images/cocktails/sex-on-the-beach-longdrink.jpg.pagespeed.ce.rccGyZM3g9.jpg" alt="Sex on the Beach">
-        <div class="info-tarjeta">
-            <h4>Sex on the Beach</h4>
-            <div class="contenedor-precio" data-precio-bs="234.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://i.ytimg.com/vi/eD4nR_VQNr8/hqdefault.jpg" alt="Daiquirí de Melocotón">
-        <div class="info-tarjeta">
-            <h4>Daiquirí de Melocotón</h4>
-            <div class="contenedor-precio" data-precio-bs="234.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://images.ctfassets.net/6zncp07wiqyq/2nloAHIdTzj5haW8t45Iu0/684b0dda69f8c72f7966b316bac4f881/media_rkgl4tad_cuba_libre_dba_recipe_570x334.jpg" alt="Cuba Libre">
-        <div class="info-tarjeta">
-            <h4>Cuba Libre</h4>
-            <div class="contenedor-precio" data-precio-bs="234.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://image.makewebeasy.net/makeweb/0/vq7Oemz1i/DefaultData/Tequila_Sunrise_web.jpg?v=202405291424" alt="Tequila Sunrise">
-        <div class="info-tarjeta">
-            <h4>Tequila Sunrise</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://media-cdn.tripadvisor.com/media/photo-m/1280/1d/9f/e3/91/sangria-granizada-de.jpg" alt="Caroreña Frappé">
-        <div class="info-tarjeta">
-            <h4>Caroreña Frappé</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://12bc4f13be.clvaw-cdnwnd.com/0f7ba76cf47efc4234388e7cd6d598f9/200000182-9c2bc9c2be/Captura%20de%20pantalla%202024-09-09%20184244.png?ph=12bc4f13be" alt="Maraquita">
-        <div class="info-tarjeta">
-            <h4>Maraquita</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://dinnerthendessert.com/wp-content/uploads/2022/09/Moscow_Mule_4.jpg" alt="Moscow Mule">
-        <div class="info-tarjeta">
-            <h4>Moscow Mule</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://thumbs.dreamstime.com/b/vibrante-c%C3%B3ctel-daiquiri-vestido-con-lona-de-lim%C3%B3n-en-un-vaso-delicioso-una-tajada-cal-servido-copa-aislada-fondo-blanco-383557469.jpg?w=576" alt="Daiquirí de Parchita">
-        <div class="info-tarjeta">
-            <h4>Daiquirí de Parchita</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://corkframes.com/cdn/shop/articles/the-ultimate-gin-and-tonic-recipe-999006.jpg?v=1718137713" alt="Gin Tonic">
-        <div class="info-tarjeta">
-            <h4>Gin Tonic</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://kerrylatamfoodservice.com/wp-content/uploads/2022/12/DEST-MOJITO-FRESA.png" alt="Mojito de Lujo">
-        <div class="info-tarjeta">
-            <h4>Mojito de Lujo</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://cdn7.kiwilimon.com/recetaimagen/10735/960x640/1488.png.jpg" alt="Caipiroska">
-        <div class="info-tarjeta">
-            <h4>Caipiroska</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://assets.epicurious.com/photos/642da48f6f7f88309f457815/1:1/w_4634,h_4634,c_limit/TomCollins_RECIPE_033123_50633.jpg" alt="Tom Collins">
-        <div class="info-tarjeta">
-            <h4>Tom Collins</h4>
-            <div class="contenedor-precio" data-precio-bs="216.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://carta.ginos.es/productos/detalle/451029.png" alt="Tinto de Verano">
-        <div class="info-tarjeta">
-            <h4>Tinto de Verano</h4>
-            <div class="contenedor-precio" data-precio-bs="180.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPcRaSy-4SeCf9YRhw_1ExPHlzhOfnaPd-UQ&s" alt="Sangría por Trago">
-        <div class="info-tarjeta">
-            <h4>Sangría por Trago</h4>
-            <div class="contenedor-precio" data-precio-bs="234.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://agratefulmeal.com/wp-content/uploads/2023/02/aperol-spritz-cocktail-featured-500x500.jpg" alt="Aperol Spritz">
-        <div class="info-tarjeta">
-            <h4>Aperol Spritz</h4>
-            <div class="contenedor-precio" data-precio-bs="234.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://www.campariacademy.com/es-es/wp-content/uploads/sites/7/2025/02/campari_spritz_-800x800.jpg" alt="Campari Spritz">
-        <div class="info-tarjeta">
-            <h4>Campari Spritz</h4>
-            <div class="contenedor-precio" data-precio-bs="234.00"></div>
-        </div>
-    </div>
-    <div class="tarjeta">
-        <img src="https://debaristashop.nl/cdn/shop/files/espresso-martini-vanilla-twee-glazen-bar-avond.webp?v=1766170149&width=535" alt="Espresso Martini">
-        <div class="info-tarjeta">
-            <h4>Espresso Martini</h4>
-            <div class="contenedor-precio" data-precio-bs="234.00"></div>
-        </div>
-    </div>
-</div>
-
-
-        <h3 class="subtitulo-seccion">🥃 Licores por Trago</h3>
+        <h3 class="subtitulo-seccion">🥤 MockTails (Sin Alcohol)</h3>
         <div class="grid-galeria">
             <div class="tarjeta">
-                <img src="https://vinoteca.gt/cdn/shop/products/50196388_4_900x900.png?v=1750979643" alt="Trago Buchanan's">
+                <img src="https://salimaskitchen.com/wp-content/uploads/2024/07/10-Minute-Pina-Colada-Recipe-A-Classic-Puerto-Rican-Cocktail-Salimas-Kitchen-4-1365x2048.jpg" alt="Piña Colada Virgen">
                 <div class="info-tarjeta">
-                    <h4>Buchanan's 12</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
+                    <h4>Piña Colada Virgen</h4>
+                    <p>Cremosa mezcla de piña y coco, 100% libre de alcohol.</p>
+                    <div class="contenedor-precio" data-precio-bs="216.00"></div>
                 </div>
             </div>
-               <div class="tarjeta">
-                <img src="https://vinotecamx.vtexassets.com/arquivos/ids/1577349-800-800?v=639036351143030000&width=800&height=800&aspect=true" alt="Trago Buchanan's 18">
-                <div class="info-tarjeta">
-                    <h4>Buchanan's 18</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-                 </div>
-               <div class="tarjeta">
-                <img src="https://cdn3.excellencerhum.com/2188-thickbox_default/rum-santa-teresa-linaje.jpg" alt="Santa teresa linaje">
-                <div class="info-tarjeta">
-                    <h4>Santa Teresa Linaje</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-            </div>
-               <div class="tarjeta">
-                <img src="https://efectococuyo.com/wp-content/uploads/2024/01/ST-1796-V-1.jpg" alt="Santa teresa 1796">
-                <div class="info-tarjeta">
-                    <h4>Santa Teresa 1796</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://lacastellana.com/cdn/shop/files/5000281003160_3_1200x1200.jpg?v=1743119028" alt="Trago Old Parr">
-                <div class="info-tarjeta">
-                    <h4>Old Parr 12</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://lachiquita.net/wp-content/uploads/2025/04/blackwhithe.webp" alt="Trago Black and White">
-                <div class="info-tarjeta">
-                    <h4>Black and White</h4>
-                    <div class="contenedor-precio" data-precio-bs="180.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.ctfassets.net/waruwpig3jxu/rYk8WxpJ1ellZvibRckWT/cbce998ec656cd06e5efa3e5a54310d9/black-750ml_producthero_lifestyle-01_desktop.webp?&w=2560&q=80" alt="Trago JW Black Label">
-                <div class="info-tarjeta">
-                    <h4>JW Black Label</h4>
-                    <div class="contenedor-precio" data-precio-bs="324.00"></div>
-                </div>
-                 </div>
-                  <div class="tarjeta">
-                <img src="https://www.shutterstock.com/image-photo/ufa-russia-january-28-2019-600nw-1328298146.jpg" alt="Dewars">
-                <div class="info-tarjeta">
-                    <h4>Dewars White Label</h4>
-                    <div class="contenedor-precio" data-precio-bs="324.00"></div>
-                </div>
-                 </div>
-            <div class="tarjeta">
-                <img src="https://lavinotheque.com/4050-large_default/gordon-s-london-dry-gin-750ml.webp" alt="Ginebra Gordons">
-                <div class="info-tarjeta">
-                    <h4>Ginebra Gordon's</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-            </div>
-             <div class="tarjeta">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7-4FMRyO9ol5kCn48Kygjn530SCa81fTbSw&s" alt="Tanqueray">
-                <div class="info-tarjeta">
-                    <h4>Ginebra Tanqueray</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-                  </div>
-             <div class="tarjeta">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSb0gcCyTfIpRaNyQiLam5xErR7OSo3-z7TQ&s" alt="Levels">
-                <div class="info-tarjeta">
-                    <h4>Ginebra Levels</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-                  </div>
-             <div class="tarjeta">
-                <img src="https://topshelfwineandspirits.com/cdn/shop/products/Untitled-1-Recoveredcopy.jpg?v=1675122068" alt="Beefeater">
-                <div class="info-tarjeta">
-                    <h4>Ginebra Beffeater</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-                  </div>
-             <div class="tarjeta">
-                <img src="https://thebrobasket.com/cdn/shop/files/Hennessy_Engraved-square.png?v=1751400424" alt="Hendricks">
-                <div class="info-tarjeta">
-                    <h4>Ginebra Hendrick's</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-                  </div>
-                  <div class="tarjeta">
-                <img src="https://cdn.shoplightspeed.com/shops/628469/files/56448783/1500x4000x3/cordials-liqueurs-cordials-disaronno-1l.jpg" alt="Disaronno">
-                <div class="info-tarjeta">
-                    <h4>Amareto Disaronno</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-                  </div>
-             <div class="tarjeta">
-                <img src="https://bottlesfinewine.com/cdn/shop/files/0001_gordons-vodka.png?v=1716929907" alt="Vodka Gordons">
-                <div class="info-tarjeta">
-                    <h4>Vodka Gordon's</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-                  </div>
-             <div class="tarjeta">
-                <img src="https://www.ronesdelmundo.com/data/productos/d_grey-goose-bilioteca-del-gourmet.jpg" alt="Grey Goose">
-                <div class="info-tarjeta">
-                    <h4>Vodka Grey Goose</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-                  </div>
-             <div class="tarjeta">
-                <img src="https://www.thebarreltap.com/cdn/shop/files/stolichnaya-premium-vodka-750ml-the-barrel-tap-www-thebarreltap-com_1981c33b-b383-40e9-ba26-90130925a8be.webp?v=1691179634" alt="Stolichnaya">
-                <div class="info-tarjeta">
-                    <h4>Vodka Stolichnaya</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Glass_of_Baileys.jpg/250px-Glass_of_Baileys.jpg" alt="Baileys">
-                <div class="info-tarjeta">
-                    <h4>Baileys</h4>
-                    <div class="contenedor-precio" data-precio-bs="288.00"></div>
-                </div>
-            </div>
-        </div>
-
-        <h3 class="subtitulo-seccion">🍾 Licores por Servicio (Botella)</h3>
-        <div class="grid-galeria">
-            <div class="tarjeta">
-                <img src="https://sunsetcorners.com/cdn/shop/files/buchanans-12y-750-new-web_1.png?v=1722478191" alt="Botella Buchanan's">
-                <div class="info-tarjeta">
-                    <h4>Buchanan's 12 (Botella)</h4>
-                    <div class="contenedor-precio" data-precio-bs="30170.79"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://www.totalwine.com/dynamic/x1000,sq/images/109338750/109338750-1-fr.png" alt="Botella Old Parr">
-                <div class="info-tarjeta">
-                    <h4>Old Parr 12 (Botella)</h4>
-                    <div class="contenedor-precio" data-precio-bs="2160.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://walmartcr.vtexassets.com/arquivos/ids/500533-800-450?v=638415025734230000&width=800&height=450&aspect=true" alt="Botella Black and White">
-                <div class="info-tarjeta">
-                    <h4>Black and White (Botella)</h4>
-                    <div class="contenedor-precio" data-precio-bs="1260.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://thebrobasket.com/cdn/shop/files/Johnie_Walker_Black-Lable-Engraved-square.png?v=1751400047&width=2000" alt="Botella JW Black Label">
-                <div class="info-tarjeta">
-                    <h4>JW Black Label (Botella)</h4>
-                    <div class="contenedor-precio" data-precio-bs="2700.00"></div>
-                </div>
-            </div>
-               <div class="tarjeta">
-                <img src="https://bodegonbeplus.com/wp-content/uploads/2023/09/whisky-dewars-white-label_.jpg" alt="Dewars">
-                <div class="info-tarjeta">
-                    <h4>Dewars White Label (botella)</h4>
-                    <div class="contenedor-precio" data-precio-bs="2700.00"></div>
-                </div>
-            </div>
-            </div>
-
-        <h3 class="subtitulo-seccion">🐠 Peceras (Para Compartir)</h3>
-        <div class="grid-galeria">
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1595981234058-a9302bf97ce6?auto=format&fit=crop&w=600&q=80" alt="Pecera Sex on the Beach">
-                <div class="info-tarjeta">
-                    <h4>Pecera: Sex on the Beach</h4>
-                    <div class="contenedor-precio" data-precio-bs="648.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=600&q=80" alt="Pecera Sangría">
-                <div class="info-tarjeta">
-                    <h4>Pecera: Sangría</h4>
-                    <div class="contenedor-precio" data-precio-bs="576.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80" alt="Pecera Tequila Sunrise">
-                <div class="info-tarjeta">
-                    <h4>Pecera: Tequila Sunrise</h4>
-                    <div class="contenedor-precio" data-precio-bs="648.00"></div>
-                </div>
-            </div>
-        </div>
-
-        <h3 class="subtitulo-seccion">🥤 MockTails</h3>
-         <div class="grid-galeria">
             <div class="tarjeta">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFwi5LldmdykZQV1DMDj-XvG3UsfzcP0fSIw&s" alt="Parchita Frappe">
                 <div class="info-tarjeta">
                     <h4>Parchita Frappé</h4>
-                    <div class="contenedor-precio" data-precio-bs="2340.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://img1.elyerromenu.com/images/bar-insomnio/limonada-frappe/img.webp" alt="Limonada Frappe">
-                <div class="info-tarjeta">
-                    <h4>Limonada Frappé</h4>
-                    <div class="contenedor-precio" data-precio-bs="2160.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://thermomix-barcelona-sagrada-familia.es/media/Posts/attachments/5bea8a4a4acf9090c9a693052243e10a.jpg" alt="Melocoton Frappe">
-                <div class="info-tarjeta">
-                    <h4>Melocotón Frappé</h4>
-                    <div class="contenedor-precio" data-precio-bs="1260.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://recetasdecocina.elmundo.es/wp-content/uploads/2025/07/granizado-de-fresa.jpg" alt="Fresa Frappe">
-                <div class="info-tarjeta">
-                    <h4>Fresa Frappé</h4>
-                    <div class="contenedor-precio" data-precio-bs="2700.00"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="piquin" class="seccion-menu">
-        <h2 class="titulo-seccion">Auténtico Sabor Mexicano</h2>
-        <h3 class="subtitulo-seccion">🌮 Tacos (Orden de 3)</h3>
-        <div class="grid-galeria">
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=600&q=80" alt="Tacos al Pastor">
-                <div class="info-tarjeta">
-                    <h4>Tacos al Pastor</h4>
                     <div class="contenedor-precio" data-precio-bs="234.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80" alt="Tacos de Carnitas">
-                <div class="info-tarjeta">
-                    <h4>Tacos de Carnitas</h4>
-                    <div class="contenedor-precio" data-precio-bs="252.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1584988358215-fb5b5ec18bc8?auto=format&fit=crop&w=600&q=80" alt="Tacos de Birria">
-                <div class="info-tarjeta">
-                    <h4>Tacos de Birria</h4>
-                    <div class="contenedor-precio" data-precio-bs="306.00"></div>
-                </div>
-            </div>
-        </div>
-
-        <h3 class="subtitulo-seccion">🌯 Burritos</h3>
-        <div class="grid-galeria">
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=600&q=80" alt="Burrito de Res">
-                <div class="info-tarjeta">
-                    <h4>Burrito Clásico de Res</h4>
-                    <div class="contenedor-precio" data-precio-bs="324.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?auto=format&fit=crop&w=600&q=80" alt="Burrito de Pollo">
-                <div class="info-tarjeta">
-                    <h4>Burrito de Pollo Asado</h4>
-                    <div class="contenedor-precio" data-precio-bs="306.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=600&q=80" alt="Burrito Supremo">
-                <div class="info-tarjeta">
-                    <h4>Burrito Supremo (Mixto)</h4>
-                    <div class="contenedor-precio" data-precio-bs="360.00"></div>
-                </div>
-            </div>
-        </div>
-
-        <h3 class="subtitulo-seccion">🎉 Especialidades</h3>
-        <div class="grid-galeria">
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=600&q=80" alt="Plato Fiesta Mexicana">
-                <div class="info-tarjeta">
-                    <h4>Plato "Fiesta Mexicana"</h4>
-                    <p>Ideal para probar un poco de todo. Incluye 2 Tacos, 1 Mini Burrito y 1 Quesadilla.</p>
-                    <div class="contenedor-precio" data-precio-bs="522.00"></div>
-                </div>
-            </div>
-            <div class="tarjeta">
-                <img src="https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=600&q=80" alt="Nachos con Queso">
-                <div class="info-tarjeta">
-                    <h4>Nachos Machos</h4>
-                    <p>Crujientes totopos bañados en queso fundido, acompañados de pico de gallo y guacamole.</p>
-                    <div class="contenedor-precio" data-precio-bs="432.00"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Porking, Modo Bar y Piquín. Todos los derechos reservados.</p>
+        <p>© 2026 Porking & Modo Bar. Todos los derechos reservados.</p>
     </footer>
 
-   <script>
-    // Nueva API gratuita y estable para la tasa BCV en Venezuela
-    const API_URL = 'https://ve.dolarapi.com/v1/dolares/oficial';
+    <script>
+        const API_URL = 'https://ve.dolarapi.com/v1/dolares/oficial';
 
-    async function cargarTasa() {
-        // Tasa de seguridad por si la API falla en algún momento
-        const tasaFallback = 56.40; 
-        
-        try {
-            const respuesta = await fetch(API_URL);
-            if (!respuesta.ok) throw new Error('Fallo en la conexión');
-            
-            const datos = await respuesta.json();
-            
-            // Esta API entrega el valor en el campo 'promedio'
-            const tasa = parseFloat(datos.promedio);
-            
-            if (isNaN(tasa)) throw new Error('Dato no válido');
-            actualizarPagina(tasa);
-        } catch (error) {
-            console.warn("Usando tasa de respaldo:", error);
-            actualizarPagina(tasaFallback);
-        }
-    }
-
-    function actualizarPagina(tasa) {
-        // Actualizamos el banner superior
-        const display = document.getElementById('tasa-display');
-        if (display) {
-            display.textContent = 'Bs. ' + tasa.toFixed(2).replace('.', ',');
-        }
-
-        // Recorremos cada tarjeta para recalcular el precio en $
-        document.querySelectorAll('.contenedor-precio').forEach(contenedor => {
-            const precioBs = parseFloat(contenedor.getAttribute('data-precio-bs'));
-            if (!isNaN(precioBs)) {
-                const precioUsd = (precioBs / tasa).toFixed(2);
-                
-                // Formateamos para que se vea limpio (ej. Bs. 1.200,00)
-                const formatoBs = precioBs.toLocaleString('es-VE', { minimumFractionDigits: 2 });
-                
-                contenedor.innerHTML = `
-                    <span class="precio-usd">$${precioUsd}</span> 
-                    <span class="precio-bs">| Bs. ${formatoBs}</span>
-                `;
+        async function cargarTasa() {
+            const tasaFallback = 56.40;
+            try {
+                const respuesta = await fetch(API_URL);
+                if (!respuesta.ok) throw new Error();
+                const datos = await respuesta.json();
+                actualizarPagina(parseFloat(datos.promedio));
+            } catch (e) {
+                console.warn("Usando tasa fallback");
+                actualizarPagina(tasaFallback);
             }
-        });
-    }
-
-    function mostrarSeccion(idSeccion, botonClickeado) {
-        // Quitamos la clase activa de todas las secciones y botones
-        document.querySelectorAll('.seccion-menu').forEach(s => s.classList.remove('activa'));
-        document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('activo'));
-        
-        // Activamos la sección seleccionada
-        const seccion = document.getElementById(idSeccion);
-        if (seccion) {
-            seccion.classList.add('activa');
-            botonClickeado.classList.add('activo');
         }
-    }
 
-    function aplicarModoNocturno() {
-        const hora = new Date().getHours();
-        // Se activa automáticamente entre las 7 PM y las 6 AM
-        if (hora >= 19 || hora < 6) {
-            document.body.classList.add('modo-noche');
+        function actualizarPagina(tasa) {
+            const display = document.getElementById('tasa-display');
+            if(display) display.textContent = 'Bs. ' + tasa.toFixed(2).replace('.', ',');
+
+            document.querySelectorAll('.contenedor-precio').forEach(contenedor => {
+                const precioBs = parseFloat(contenedor.getAttribute('data-precio-bs'));
+                if (!isNaN(precioBs)) {
+                    const precioUsd = (precioBs / tasa).toFixed(2);
+                    const formatoBs = precioBs.toLocaleString('es-VE', {minimumFractionDigits: 2});
+                    contenedor.innerHTML = `<span class="precio-usd">$${precioUsd}</span> <span class="precio-bs">| Bs. ${formatoBs}</span>`;
+                }
+            });
         }
-    }
 
-    // Ejecutar cuando el navegador termine de cargar el contenido
-    document.addEventListener('DOMContentLoaded', () => {
-        cargarTasa();
-        aplicarModoNocturno();
-    });
-</script>
+        function mostrarSeccion(id, btn) {
+            document.querySelectorAll('.seccion-menu').forEach(s => s.classList.remove('activa'));
+            document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('activo'));
+            document.getElementById(id).classList.add('activa');
+            btn.classList.add('activo');
+        }
 
+        function aplicarModoNocturno() {
+            const hora = new Date().getHours();
+            if (hora >= 19 || hora < 6) document.body.classList.add('modo-noche');
+        }
+
+        window.onload = () => {
+            cargarTasa();
+            aplicarModoNocturno();
+        };
+    </script>
 </body>
 </html>
