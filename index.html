@@ -1070,46 +1070,81 @@
     </footer>
 
    <script>
-        const API_URL = 'https://pydolarvenezuela-api.vercel.app/api/v1/dollar/bcv';
+    // Nueva API gratuita y estable para la tasa BCV en Venezuela
+    const API_URL = 'https://ve.dolarapi.com/v1/dolares/oficial';
 
-        async function cargarTasa() {
-            try {
-                const respuesta = await fetch(API_URL);
-                const json = await respuesta.json();
-                const tasa = parseFloat(json.monitors.BCV.price);
-                actualizarPagina(tasa);
-            } catch (error) {
-                actualizarPagina(431.01);
-            }
+    async function cargarTasa() {
+        // Tasa de seguridad por si la API falla en algún momento
+        const tasaFallback = 56.40; 
+        
+        try {
+            const respuesta = await fetch(API_URL);
+            if (!respuesta.ok) throw new Error('Fallo en la conexión');
+            
+            const datos = await respuesta.json();
+            
+            // Esta API entrega el valor en el campo 'promedio'
+            const tasa = parseFloat(datos.promedio);
+            
+            if (isNaN(tasa)) throw new Error('Dato no válido');
+            actualizarPagina(tasa);
+        } catch (error) {
+            console.warn("Usando tasa de respaldo:", error);
+            actualizarPagina(tasaFallback);
+        }
+    }
+
+    function actualizarPagina(tasa) {
+        // Actualizamos el banner superior
+        const display = document.getElementById('tasa-display');
+        if (display) {
+            display.textContent = 'Bs. ' + tasa.toFixed(2).replace('.', ',');
         }
 
-        function actualizarPagina(tasa) {
-            document.getElementById('tasa-display').textContent = 'Bs. ' + tasa.toFixed(2);
-            document.querySelectorAll('.contenedor-precio').forEach(contenedor => {
-                const precioBs = parseFloat(contenedor.getAttribute('data-precio-bs'));
+        // Recorremos cada tarjeta para recalcular el precio en $
+        document.querySelectorAll('.contenedor-precio').forEach(contenedor => {
+            const precioBs = parseFloat(contenedor.getAttribute('data-precio-bs'));
+            if (!isNaN(precioBs)) {
                 const precioUsd = (precioBs / tasa).toFixed(2);
-                contenedor.innerHTML = `<span class="precio-usd">$${precioUsd}</span> <span class="precio-bs">| Bs. ${precioBs.toFixed(2)}</span>`;
-            });
-        }
+                
+                // Formateamos para que se vea limpio (ej. Bs. 1.200,00)
+                const formatoBs = precioBs.toLocaleString('es-VE', { minimumFractionDigits: 2 });
+                
+                contenedor.innerHTML = `
+                    <span class="precio-usd">$${precioUsd}</span> 
+                    <span class="precio-bs">| Bs. ${formatoBs}</span>
+                `;
+            }
+        });
+    }
 
-        function mostrarSeccion(idSeccion, botonClickeado) {
-            document.querySelectorAll('.seccion-menu').forEach(s => s.classList.remove('activa'));
-            document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('activo'));
-            document.getElementById(idSeccion).classList.add('activa');
+    function mostrarSeccion(idSeccion, botonClickeado) {
+        // Quitamos la clase activa de todas las secciones y botones
+        document.querySelectorAll('.seccion-menu').forEach(s => s.classList.remove('activa'));
+        document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('activo'));
+        
+        // Activamos la sección seleccionada
+        const seccion = document.getElementById(idSeccion);
+        if (seccion) {
+            seccion.classList.add('activa');
             botonClickeado.classList.add('activo');
         }
+    }
 
-        function aplicarModoNocturno() {
-            const hora = new Date().getHours();
-            if (hora >= 19 || hora < 6) {
-                document.body.classList.add('modo-noche');
-            }
+    function aplicarModoNocturno() {
+        const hora = new Date().getHours();
+        // Se activa automáticamente entre las 7 PM y las 6 AM
+        if (hora >= 19 || hora < 6) {
+            document.body.classList.add('modo-noche');
         }
+    }
 
-        window.onload = function() {
-            cargarTasa();
-            aplicarModoNocturno();
-        };
-    </script>
+    // Ejecutar cuando el navegador termine de cargar el contenido
+    document.addEventListener('DOMContentLoaded', () => {
+        cargarTasa();
+        aplicarModoNocturno();
+    });
+</script>
+
 </body>
 </html>
